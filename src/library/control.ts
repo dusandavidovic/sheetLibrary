@@ -1,9 +1,11 @@
 import SpreadSheet from "./SpreadSheet";
+import Common from "./common";
 
 type TSheets = {
   name: string;
+  keyColumn: string;
   sheet?: GoogleAppsScript.Spreadsheet.Sheet | null;
-  values?: any[][];
+  values: any[][] | undefined;
   header?: any[] | undefined;
   headerObj?: any;
 };
@@ -23,6 +25,10 @@ class Control {
 class ControlInfo extends Control {
   me: TSheets = {
     name: "spreadsheetInfo",
+    keyColumn: "name",
+    values: [],
+    header: [],
+    headerObj: {},
   };
   constructor(id: string) {
     super(id, "spreadsheetInfo");
@@ -32,8 +38,20 @@ class ControlInfo extends Control {
     this.me.headerObj = this.info.ss?.headerObj;
   }
 
-  //   getSheet() {
-  //     return this.me.SS.getSheet();
-  //   }
+  getRow(value: any) {
+    const row = Common.readByKeyColumnValue(
+      this.me.keyColumn,
+      value,
+      this.me.values,
+      this.me.headerObj
+    );
+    return row;
+  }
+
+  getRowObject(value: any) {
+    const rows = [this.getRow(value)];
+    const rowObj = Common.getDataObject(this.me.headerObj, rows);
+    return rowObj[0];
+  }
 }
 export default ControlInfo;

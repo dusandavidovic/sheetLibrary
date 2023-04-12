@@ -47,16 +47,14 @@ class Common {
     headerObject: {}
   ) => {
     const index = headerObject[keyColumn];
-    let lookupRow: any[] = [];
+    let rowIndex = 0;
     if (matrix) {
-      lookupRow = matrix.filter((val, idx) => {
+      rowIndex = matrix.findIndex((val, idx) => {
         console.log(val[index], idx);
-        if (value === val[index]) {
-          return true;
-        }
+        return value === val[index];
       });
+      return matrix[rowIndex];
     }
-    return lookupRow ? lookupRow[0] : [];
   };
 }
 

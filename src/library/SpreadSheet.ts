@@ -53,15 +53,6 @@ class SpreadSheet {
       if (this.header) this.headerObj = Common.getHeaderobject(this.header);
     }
   }
-
-  // setHeaderObj(header) {
-  //   let idx = 0;
-  //   return header.reduce((previous: { [x: string]: number }, current: string) => {
-  //     let camelString = camelize(current.replace(/[^a-zA-Z ]/g, ""));
-  //     previous[camelString] = idx += 1;
-  //     return previous;
-  //   }, {});
-  // }
 }
 
 export default SpreadSheet;
